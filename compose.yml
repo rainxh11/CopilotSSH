@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  copilot-ssh:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - ROOT_PASSWORD=${ROOT_PASSWORD:-rootpassword}
+    container_name: copilot-ssh-server
+    hostname: copilot-dev
+    ports:
+      - "2222:22"  # SSH access on host port 2222
+    environment:
+      - NODE_ENV=development
+      - ROOT_PASSWORD=${ROOT_PASSWORD:-rootpassword}
+    volumes:
+      - ./workdir:/workdir
+      - ssh-keys:/root/.ssh
+    restart: always
+    networks:
+      - copilot-network
+    stdin_open: true
+    tty: true
+
+volumes:
+  ssh-keys:
+
+networks:
+  copilot-network:
+    driver: bridge
