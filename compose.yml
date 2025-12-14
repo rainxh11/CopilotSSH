@@ -9,22 +9,17 @@ services:
         - ROOT_PASSWORD=${ROOT_PASSWORD:-rootpassword}
     container_name: copilot-ssh-server
     ports:
-      - "${SSH_PORT}:22"  # SSH access on host port 2222
+      - ${SSH_PORT}:22
     environment:
       - NODE_ENV=development
       - ROOT_PASSWORD=${ROOT_PASSWORD:-rootpassword}
     volumes:
-      - ./workdir:/workdir
-      - ssh-keys:/root/.ssh
+      - copilot_workdir:/workdir
+      - ssh_keys:/root/.ssh
     restart: always
-    networks:
-      - copilot-network
     stdin_open: true
     tty: true
 
 volumes:
-  ssh-keys:
-
-networks:
-  copilot-network:
-    driver: bridge
+  copilot_workdir:
+  ssh_keys:
