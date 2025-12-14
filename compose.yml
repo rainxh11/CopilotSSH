@@ -8,7 +8,6 @@ services:
       args:
         - ROOT_PASSWORD=${ROOT_PASSWORD:-rootpassword}
     container_name: copilot-ssh-server
-    hostname: copilot-dev
     ports:
       - "${SSH_PORT}:22"  # SSH access on host port 2222
     environment:
