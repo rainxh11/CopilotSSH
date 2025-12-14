@@ -27,5 +27,5 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Start SSH server and keep container running
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["copilot","--allow-all-tools"]
     
