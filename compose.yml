@@ -5,21 +5,24 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - ROOT_PASSWORD=${ROOT_PASSWORD:-rootpassword}
     container_name: copilot-ssh-server
+    hostname: copilot-ssh
     ports:
-      - ${SSH_PORT}:22
+      - ${SSH_PORT:-2222}:2222
     environment:
-      - NODE_ENV=development
-      - ROOT_PASSWORD=${ROOT_PASSWORD:-rootpassword}
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - PASSWORD_ACCESS=true
+      - USER_PASSWORD=${ROOT_PASSWORD:-rootpassword}
+      - USER_NAME=${SSH_USER:-copilot}
     volumes:
+      - ssh_config:/config
       - copilot_workdir:/workdir
-      - ssh_keys:/root/.ssh
-    restart: always
+    restart: unless-stopped
     stdin_open: true
     tty: true
 
 volumes:
+  ssh_config:
   copilot_workdir:
-  ssh_keys:
