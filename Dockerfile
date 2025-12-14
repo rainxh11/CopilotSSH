@@ -22,10 +22,6 @@ RUN npm i -g @github/copilot@latest
 # Expose SSH port
 EXPOSE 22
 
-# Copy entrypoint script
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 # Start SSH server and keep container running
 ENTRYPOINT ["copilot","--allow-all-tools"]
     
