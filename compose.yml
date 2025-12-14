@@ -10,7 +10,7 @@ services:
     container_name: copilot-ssh-server
     hostname: copilot-dev
     ports:
-      - "2222:22"  # SSH access on host port 2222
+      - "${SSH_PORT}:22"  # SSH access on host port 2222
     environment:
       - NODE_ENV=development
       - ROOT_PASSWORD=${ROOT_PASSWORD:-rootpassword}
